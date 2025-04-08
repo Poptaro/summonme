@@ -7,21 +7,32 @@ import './App.css'
 function App() {
   const [user, setUser] = useState(null)
 
-  // useEffect(() => {
-  //   async function grabCurrentUser() {
-  //     const response = await fetch(`http://localhost:8000/user/rokusho/kana/`)
-  //     const data = await response.json()
-  //     console.log(data)
-  //     setUser(data)
-  //   }
-  //   grabCurrentUser()
-  // }, [])
+  useEffect(() => {
+    console.log("PLEASE DONT BE REPEATING AUTH")
+    refreshAuth()
+  }, [])
 
+  async function refreshAuth() {
+    const current_token = localStorage.getItem("token")
+    if(!current_token) {
+      setUser(null)
+      return
+    }
+    //Calls user_app from django(NOT AUTH APP)
+    const response = await fetch(`http://localhost:8000/user/`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Token ${current_token}`,
+      }
+    })
+    const data = await response.json()
+    setUser(data)
+  }
 
   return (
     <>
-      <NavbarComponent currentUser={ user }/>
-      <Outlet context={ user }/>
+      <NavbarComponent user={user} refreshAuth={refreshAuth}/>
+      <Outlet context={{refreshAuth}}/>
     </>
   )
 }

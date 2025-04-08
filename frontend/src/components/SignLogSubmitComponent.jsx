@@ -2,10 +2,10 @@
 
 export default function SignLogSubmitComponent({  SL }) {
   return (
-    <button className="w-[75%] h-8 bg-blue-400 rounded-sm hover:bg-blue-600">
+    <button className="w-[75%] h-8 text-palette-gray bg-palette-teal rounded-sm hover:bg-teal-500">
       {
-        SL === "signin"
-        ? <p>Sign In</p>
+        SL === "signup"
+        ? <p>Sign Up</p>
         : <p>Log In</p>
       }
     </button>

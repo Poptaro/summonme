@@ -17,28 +17,30 @@ RIOT_API_KEY = config.get("RIOT_API_KEY")
 #REQUIRES AUTH/TOKEN VIA summonme.settings
 
 #Gets a single user .model User information
+#/user/<int:id>/
 class Single_User(APIView):
 
-
-  def get(self, request, id):
-    if request.user.id != id:
+  def get(self, request):
+    user_id = request.user.id
+    if not user_id:
       return Response({"Auth error: You cannot view other profiles"}, status=s.HTTP_418_IM_A_TEAPOT)
-    user = UserSerializer(get_object_or_404(User, id=id)).data
+    user = UserSerializer(get_object_or_404(User, id=user_id)).data
+    print(user)
     return Response(user, status=s.HTTP_200_OK)
 
 
-  #Update user information
-  def put(self, request, id):
-    if request.user.id != id:
-      return Response({"Auth error: You cannot view other profiles"}, status=s.HTTP_418_IM_A_TEAPOT)
-    user = get_object_or_404(User, id=id)
-    user_ser = UserSerializer(user,  data=request.data, partial=True)
-    if user_ser.is_valid():
-      user_ser.save()
-      return Response(user_ser.data)
-    return Response(user_ser.errors)
+  # #Update user information
+  # def put(self, request, id):
+  #   if request.user.id != id:
+  #     return Response({"Auth error: You cannot view other profiles"}, status=s.HTTP_418_IM_A_TEAPOT)
+  #   user = get_object_or_404(User, id=id)
+  #   user_ser = UserSerializer(user,  data=request.data, partial=True)
+  #   if user_ser.is_valid():
+  #     user_ser.save()
+  #     return Response(user_ser.data)
+  #   return Response(user_ser.errors)
     
 
-  #Delete user
-  def delete(self, request, id):
-    pass
+  # #Delete user
+  # def delete(self, request, id):
+  #   pass
