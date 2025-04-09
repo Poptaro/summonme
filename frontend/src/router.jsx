@@ -3,8 +3,12 @@ import App from "./App.jsx"
 
 import HomePage from "./pages/HomePage.jsx"
 import StatsPage from "./pages/StatsPage.jsx"
+import FragmentsPage from "./pages/FragmentsPage.jsx"
+
 import SignUpPage from "./pages/SignUpPage.jsx"
 import LogInPage from "./pages/LogInPage.jsx"
+
+import NotFoundPage from "./pages/NotFoundPage.jsx"
 
 const router = createBrowserRouter([
   {
@@ -20,6 +24,10 @@ const router = createBrowserRouter([
         element: <StatsPage />
       },
       {
+        path: "/fragments",
+        element: <FragmentsPage />
+      },
+      {
         path: "/signup",
         element: <SignUpPage />
       },
@@ -27,13 +35,14 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LogInPage />
       },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+        children: [],
+      },
     ],
   },
-  // {
-  //   path: "*",
-  //   element: <>404</>,
-  //   children: [],
-  // }
+
 ])
 
 export default router

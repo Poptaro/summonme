@@ -27,7 +27,7 @@ export default function ModalComponent({ refreshAuth }) {
         Profile
       </div>
       <div 
-        className='h-[50%] hover:cursor-pointer hover:text-palette-pink text-[#E85A71]'
+        className='h-[50%] hover:cursor-pointer hover:text-palette-pink text-palette-red'
         onClick={logout}
       >
         Log Out

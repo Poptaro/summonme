@@ -34,8 +34,8 @@ export default function NavbarComponent({ user, refreshAuth }) {
             {/* "text-palette-white text-5xl active:text-red-300"  */}
           </div>
           <div className='flex gap-4'>
-            {/* <NavlinkComponent path="/">Home</NavlinkComponent> */}
             <NavlinkComponent path="/stats">Stats</NavlinkComponent>
+            <NavlinkComponent path="/fragments">Fragments</NavlinkComponent>
           </div>
         </div>
         <div className='flex flex-col'>

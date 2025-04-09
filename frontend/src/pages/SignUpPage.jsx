@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
-import SignLogBoxComponent from '../components/SignLogBoxComponent'
-import SignLogInputComponent from '../components/SignLogInputComponent'
-import SignLogSubmitComponent from "../components/SignLogSubmitComponent"
+import SignLogBoxComponent from '../components/AuthComponents/SignLogBoxComponent'
+import SignLogInputComponent from '../components/AuthComponents/SignLogInputComponent'
+import SignLogSubmitComponent from "../components/AuthComponents/SignLogSubmitComponent"
 
 export default function SignUpPage() {
 

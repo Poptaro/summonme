@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import NavbarComponent from './components/NavbarComponent'
+import NavbarComponent from './components/NavbarComponents/NavbarComponent'
 import './App.css'
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   return (
     <>
       <NavbarComponent user={user} refreshAuth={refreshAuth}/>
-      <Outlet context={{refreshAuth}}/>
+      <Outlet context={{refreshAuth, user}}/>
     </>
   )
 }

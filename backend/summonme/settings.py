@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'auth_app',
     'user_app',
+    'stats_app',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +79,6 @@ CORS_ALLOW_HEADERS = (
 CORS_ALLOW_METHODS = (
     "DELETE",
     "GET",
-    "OPTIONS",
-    "PATCH",
     "POST",
     "PUT",
 )
