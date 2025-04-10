@@ -81,6 +81,7 @@ CORS_ALLOW_METHODS = (
     "GET",
     "POST",
     "PUT",
+    "PATCH",
 )
 
 ROOT_URLCONF = 'summonme.urls'

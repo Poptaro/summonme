@@ -1,6 +1,7 @@
 from django.db import models
 from django.core import validators as v
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -15,6 +16,11 @@ class User(AbstractUser):
   game_name = models.CharField(max_length=255, null=True, blank=True, default=None, validators=[v.MaxLengthValidator(16)])
   tag_line = models.CharField(max_length=255, null=True, blank=True, default=None, validators=[v.MinLengthValidator(3), v.MaxLengthValidator(5)])
 
+  favorite_champs = ArrayField(
+    base_field=models.IntegerField(),
+    size=300,
+    default=list,
+  )
 
 
   REQUIRED_FIELDS = []

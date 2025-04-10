@@ -7,7 +7,7 @@ import requests
 
 from .models import Champion, DDragon
 from .serializers import ChampionSerializer, DDragonSerializer
-
+from user_app.serializers import UserSerializer
 
 from dotenv import dotenv_values
 config = dotenv_values(".env")
@@ -66,6 +66,15 @@ class Riot_User_Champions(APIView):
     except:
       return Response("Failed to cipher ddragon and authorized user's champions", status=s.HTTP_400_BAD_REQUEST)
 
+  # Update user's favs per react click
+  def patch(self, request):
+    user = request.user
+    user_ser = UserSerializer(instance=user, data=request.data, partial=True)
+    if user_ser.is_valid():
+      user_ser.save()
+      return Response(user_ser.data, status=s.HTTP_202_ACCEPTED)
+    else:
+      return Response("Failed to update user's favorite champs", status=s.HTTP_400_BAD_REQUEST)
 
 
 # Not tied to speicfic users. This is for ddragon champion only data stuff
@@ -90,13 +99,12 @@ class DDragon_View(APIView):
     r = r.get("data")
     try:
       for key, value in r.items():
-        champ_name = value.get("name")
         ddragon = DDragon.objects.create(
           champion_id = value.get("key"),
-          champion_name = champ_name,
+          champion_name = value.get("name"),
           champion_title = value.get("title"),
-          champion_splash = f"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{champ_name}_0.jpg",
-          champion_square = f"https://ddragon.leagueoflegends.com/cdn/15.7.1/img/champion/{champ_name}.png",
+          champion_splash = f"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{value.get("id")}_0.jpg",
+          champion_square = f"https://ddragon.leagueoflegends.com/cdn/15.7.1/img/champion/{value.get("id")}.png",
         )
         ddragon.full_clean()
         ddragon.save()
