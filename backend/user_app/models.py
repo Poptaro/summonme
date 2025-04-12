@@ -16,10 +16,13 @@ class User(AbstractUser):
   game_name = models.CharField(max_length=255, null=True, blank=True, default=None, validators=[v.MaxLengthValidator(16)])
   tag_line = models.CharField(max_length=255, null=True, blank=True, default=None, validators=[v.MinLengthValidator(3), v.MaxLengthValidator(5)])
 
+  ######STATS/ PAGE MUTABLE######
   favorite_champs = ArrayField(
     base_field=models.IntegerField(),
     size=300,
     default=list,
+    blank=True
+
   )
 
 

@@ -1,8 +1,8 @@
 import { useOutletContext } from "react-router-dom"
 import { useState, useEffect } from "react"
 
-import FavoriteChampComponent from "../components/FavoriteChampionComponent"
-import NonFavoriteChampComponent from "../components/NonFavoriteChampComponent"
+import FavoriteChampComponent from "../components/FavComponents/FavoriteChampionComponent"
+import NonFavoriteChampComponent from "../components/FavComponents/NonFavoriteChampComponent"
 
 
 export default function StatsPage() {
@@ -10,19 +10,18 @@ export default function StatsPage() {
   // Current user logged in
   const { user } = useOutletContext()
   // Champ mastery per user all 160(rokusho case)
-  const [userChamps, setUserChamps] = useState([])
+  // const [userChamps, setUserChamps] = useState([])
   // Champs to be displayed on screen
   const [favoriteChamps, setFavoriteChamps] = useState([])
   // Champs to be displayed in the non favorites bar
   const [nonFavoriteChamps, setNonFavoriteChamps] = useState([])
 
-  const [trigger, setTrigger] = useState(0)
 
   useEffect(() => {
     if (!user || !user.favorite_champs) return;
     console.log("Stats fetchUserDDragon")
     fetchFavs()
-  }, [user, trigger])
+  }, [user])
 
  
   async function fetchUserDDragon() {
@@ -54,10 +53,8 @@ export default function StatsPage() {
 
   async function fetchFavs() {
     const DDragon = await fetchUserDDragon()
-    setUserChamps(DDragon)
+    // setUserChamps(DDragon)
     if(user){
-      console.log(user)
-      console.log(DDragon)
       await createFavChamps(DDragon, user.favorite_champs)
     }
   }
@@ -106,7 +103,7 @@ export default function StatsPage() {
   return (
     <div className="flex flex-col items-center p-4 gap-1">
       
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 justify-center">
         {
           favoriteChamps
           ? favoriteChamps.map((favChamp) => {
@@ -122,10 +119,10 @@ export default function StatsPage() {
         }
 
       </div>
-      <div>
-        Unfavs below
+      <div className="my-2">
+        {/* Unfavs below */}
       </div>
-      <div className="flex flex-wrap justify-center gap-1 border-1 bg-palette-white p-2 rounded-md inset-shadow-sm inset-shadow-palette-black">
+      <div className="flex flex-wrap justify-center gap-1 border-1 border-palette-black bg-palette-gray p-2 rounded-md inset-shadow-sm inset-shadow-palette-black">
         {
           nonFavoriteChamps
           ? nonFavoriteChamps.map((champ) => {

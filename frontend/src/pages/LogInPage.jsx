@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useOutletContext } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 
@@ -8,7 +8,7 @@ import SignLogSubmitComponent from "../components/AuthComponents/SignLogSubmitCo
 
 export default function LogInPage() {
 
-  const { refreshAuth } = useOutletContext()
+  const { refreshUser } = useOutletContext()
   const navigate = useNavigate()
 
 
@@ -47,7 +47,7 @@ export default function LogInPage() {
           const {token} = await response.json()
           // console.log("token: ", token,"user: ", user)
           localStorage.setItem("token", token)
-          refreshAuth()
+          refreshUser()
           navigate('/')
 
         } catch(error) {

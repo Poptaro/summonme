@@ -9,10 +9,13 @@ class DDragon(models.Model):
   champion_splash = models.CharField(max_length=255)
   champion_square = models.CharField(max_length=255)
 
+  def __str__(self):
+    return f"{self.champion_id}. {self.champion_name}"
+
 class Champion(models.Model):
   champion_id = models.IntegerField()
-  champion_level = models.IntegerField()
-  champion_points = models.BigIntegerField()
+  champion_level = models.IntegerField(default=0)
+  champion_points = models.BigIntegerField(default=0)
   
   champion_name = models.CharField(max_length=255, unique=True)
   champion_title = models.CharField(max_length=255)

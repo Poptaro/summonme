@@ -9,10 +9,10 @@ function App() {
 
   useEffect(() => {
     console.log("PLEASE DONT BE REPEATING AUTH")
-    refreshAuth()
+    refreshUser()
   }, [])
 
-  async function refreshAuth() {
+  async function refreshUser() {
     const current_token = localStorage.getItem("token")
     if(!current_token) {
       setUser(null)
@@ -31,8 +31,8 @@ function App() {
 
   return (
     <>
-      <NavbarComponent user={user} refreshAuth={refreshAuth}/>
-      <Outlet context={{refreshAuth, user}}/>
+      <NavbarComponent user={user} refreshUser={refreshUser}/>
+      <Outlet context={{refreshUser, user, setUser}}/>
     </>
   )
 }

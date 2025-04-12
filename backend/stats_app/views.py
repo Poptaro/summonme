@@ -38,7 +38,9 @@ class Riot_User_Champions(APIView):
     try:
       r = requests.get(
         f"https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${user.puuid}", 
-        headers={"X-Riot-Token": RIOT_API_KEY}
+        headers={
+          "X-Riot-Token": RIOT_API_KEY
+        }
       ).json()
 
       dd = requests.get(
@@ -46,22 +48,46 @@ class Riot_User_Champions(APIView):
         headers={"Authorization": f"Token {token}"}
       ).json()
 
+      # print(dd)
+      # return 
+      # Has every single champ
       dict = {}
       for champ in dd:
         dict[champ.get("champion_id")] = champ
+
+# dict 
+# 143: {
+#   'id': 344, 
+#   'champion_id': 143, 
+#   'champion_name': 'Zyra', 
+#   'champion_title': 'Rise of the Thorns', 
+#   'champion_splash': 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zyra_0.jpg',
+#   'champion_square': 'https://ddragon.leagueoflegends.com/cdn/15.7.1/img/champion/Zyra.png'
+# }
       
+      # r only has played champs
       for champ in r:
-        full = {}
-        if dict[champ.get("championId")]:
-          full = {
-            **dict[champ.get("championId")],
-            "champion_id": champ.get("championId"), 
-            "champion_level": champ.get("championLevel"), 
-            "champion_points": champ.get("championPoints"),
-            "user": user
-          }
-          del full["id"]
-          Champion.objects.create(**full)
+        full = {
+          **dict[champ.get("championId")],
+          "champion_id": champ.get("championId"), 
+          "champion_level": champ.get("championLevel"), 
+          "champion_points": champ.get("championPoints"),
+          "user": user
+        }
+        del full["id"]
+        Champion.objects.create(**full)
+        # Remove the freshly created champion from the dict array
+        del dict[champ.get("championId")]
+      # Create new Champion models for non played champions
+      for champ in dict:
+        unplayed_champ_full = {
+          **dict[champ],
+          "user": user
+        }
+        # print(unplayed_champ_full)
+        del unplayed_champ_full["id"]
+        Champion.objects.create(**unplayed_champ_full)
+      # print(dict)
       return Response("Sucessfully ciphered ddragon and authorized user's champions", status=s.HTTP_201_CREATED)
     except:
       return Response("Failed to cipher ddragon and authorized user's champions", status=s.HTTP_400_BAD_REQUEST)
@@ -87,7 +113,6 @@ class DDragon_View(APIView):
   def get(self, request):
     ddragons = DDragon.objects.all()
     ddragons_ser = DDragonSerializer(ddragons, many=True).data
-    print(ddragons_ser)
     return Response(ddragons_ser, status=s.HTTP_200_OK)
 
 

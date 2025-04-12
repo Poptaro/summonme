@@ -7,7 +7,7 @@ import ModalComponent from './ModalComponent'
 
 // import { useOutletContext } from 'react-router-dom'
 
-export default function NavbarComponent({ user, refreshAuth }) {
+export default function NavbarComponent({ user, refreshUser }) {
 
 
   //Set profileModal to false every refresh
@@ -46,7 +46,7 @@ export default function NavbarComponent({ user, refreshAuth }) {
                   <UsernameComponent>
                     {
                       user.game_name && user.tag_line
-                      ? <p className='hover:text-palette-pink'>{user.game_name}#{user.tag_line}</p>
+                      ? <p className='hover:text-palette-pink flex items-center'><img src={user.icon} className='h-10 mx-2'/>{user.username}@{user.game_name}#{user.tag_line}</p>
                       : <p className='hover:text-palette-pink'>{user.username}</p>
                     }
                   </UsernameComponent>
@@ -54,7 +54,7 @@ export default function NavbarComponent({ user, refreshAuth }) {
                 <div className=''>
                   {
                     profileModal
-                    ? <ModalComponent refreshAuth={refreshAuth}/>
+                    ? <ModalComponent refreshUser={refreshUser}/>
                     : null
                   }
                 </div>

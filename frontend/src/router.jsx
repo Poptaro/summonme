@@ -7,6 +7,7 @@ import FragmentsPage from "./pages/FragmentsPage.jsx"
 
 import SignUpPage from "./pages/SignUpPage.jsx"
 import LogInPage from "./pages/LogInPage.jsx"
+import ProfilePage from "./pages/ProfilePage.jsx"
 
 import NotFoundPage from "./pages/NotFoundPage.jsx"
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LogInPage />
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />
       },
       {
         path: "*",

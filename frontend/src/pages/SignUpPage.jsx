@@ -7,7 +7,7 @@ import SignLogSubmitComponent from "../components/AuthComponents/SignLogSubmitCo
 
 export default function SignUpPage() {
 
-  const { refreshAuth } = useOutletContext()
+  const { refreshUser } = useOutletContext()
   const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
@@ -47,7 +47,7 @@ export default function SignUpPage() {
           const {token} = await response.json()
           // console.log("token: ", token,"user: ", user)
           localStorage.setItem("token", token)
-          refreshAuth()
+          refreshUser()
           navigate('/')
 
         } catch(error) {
