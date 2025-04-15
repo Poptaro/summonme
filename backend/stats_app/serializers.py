@@ -9,7 +9,7 @@ class DDragonSerializer(serializers.ModelSerializer):
     fields = "__all__"
 
 class ChampionSerializer(serializers.ModelSerializer):
-
+  ddragon = DDragonSerializer()
   class Meta:
     model = Champion
     fields = "__all__"

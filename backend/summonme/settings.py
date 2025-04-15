@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'auth_app',
     'user_app',
     'stats_app',
+    'fragments_app',
 ]
 
 MIDDLEWARE = [

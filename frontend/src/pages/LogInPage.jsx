@@ -28,6 +28,11 @@ export default function LogInPage() {
       setUsernameError(isUser)
       setPasswordError(isPassword)
 
+      if(localStorage.getItem("token")) {
+        console.log("already logged in")
+        return
+      }
+
       // username and password valid
       if(!isUser && !isPassword) {
         try {

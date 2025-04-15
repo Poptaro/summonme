@@ -22,4 +22,5 @@ urlpatterns = [
     path('user/', include('user_app.urls')),
     path('auth/', include('auth_app.urls')),
     path('stats/', include('stats_app.urls')),
+    path('fragments/', include('fragments_app.urls')),
 ]

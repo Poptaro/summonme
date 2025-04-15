@@ -1,4 +1,5 @@
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status as s
@@ -48,13 +49,13 @@ class Riot_User_Champions(APIView):
         headers={"Authorization": f"Token {token}"}
       ).json()
 
+
       # print(dd)
       # return 
       # Has every single champ
       dict = {}
       for champ in dd:
         dict[champ.get("champion_id")] = champ
-
 # dict 
 # 143: {
 #   'id': 344, 
@@ -68,24 +69,26 @@ class Riot_User_Champions(APIView):
       # r only has played champs
       for champ in r:
         full = {
-          **dict[champ.get("championId")],
           "champion_id": champ.get("championId"), 
           "champion_level": champ.get("championLevel"), 
           "champion_points": champ.get("championPoints"),
-          "user": user
+          "ddragon": DDragon.objects.get(champion_id=champ.get("championId")),
+          "user": user,
         }
-        del full["id"]
+      
         Champion.objects.create(**full)
         # Remove the freshly created champion from the dict array
         del dict[champ.get("championId")]
       # Create new Champion models for non played champions
-      for champ in dict:
+      # print(dict)
+      for key, champ in dict.items():
         unplayed_champ_full = {
-          **dict[champ],
+          "champion_id": champ.get("champion_id"),
+          "ddragon": DDragon.objects.get(champion_id=champ.get("champion_id")),
           "user": user
         }
-        # print(unplayed_champ_full)
-        del unplayed_champ_full["id"]
+        
+        print(unplayed_champ_full)
         Champion.objects.create(**unplayed_champ_full)
       # print(dict)
       return Response("Sucessfully ciphered ddragon and authorized user's champions", status=s.HTTP_201_CREATED)
@@ -108,6 +111,7 @@ class Riot_User_Champions(APIView):
 # 15.7.1
 # stats/ddragon/
 class DDragon_View(APIView):
+  permission_classes = [AllowAny]
 
   # Retrieve all ddragon information(Champion data NOT USER TIRED)
   def get(self, request):
@@ -126,10 +130,13 @@ class DDragon_View(APIView):
       for key, value in r.items():
         ddragon = DDragon.objects.create(
           champion_id = value.get("key"),
+          # key is the name for the web and images
+          champion_key = value.get("id"),
           champion_name = value.get("name"),
           champion_title = value.get("title"),
           champion_splash = f"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{value.get("id")}_0.jpg",
           champion_square = f"https://ddragon.leagueoflegends.com/cdn/15.7.1/img/champion/{value.get("id")}.png",
+          champion_loading = f"https://ddragon.leagueoflegends.com/cdn/img/champion/loading/{value.get("id")}_0.jpg"
         )
         ddragon.full_clean()
         ddragon.save()

@@ -22,7 +22,6 @@ class User(AbstractUser):
     size=300,
     default=list,
     blank=True
-
   )
 
 

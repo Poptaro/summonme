@@ -55,7 +55,7 @@ class Single_User(APIView):
         "X-Riot-Token": RIOT_API_KEY
       }
     ).json()
-    payload["accountId"] = r2.get("accountId")
+    payload["account_id"] = r2.get("accountId")
     payload["icon"] = f"https://ddragon.leagueoflegends.com/cdn/15.7.1/img/profileicon/{r2.get("profileIconId")}.png"
 
     user_ser = UserSerializer(user,  data=payload, partial=True)
