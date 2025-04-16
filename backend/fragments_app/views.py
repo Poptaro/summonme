@@ -14,16 +14,15 @@ from stats_app.models import DDragon
 # https://ddragon.leagueoflegends.com/cdn/img/{LINK TO IMG FOR RUNES}
 # fragments/
 # fragments/champion_id/
-# fragments/fragment_id/
 class Fragment_View(APIView):
   # Requires champion's Web Name
   def get(self, request, champion_key):
     user = request.user
     fragments = Fragment.objects.filter(user=user, champion=DDragon.objects.get(champion_key__iexact=champion_key))
     fragments_ser = FragmentSerializer(fragments, many=True).data
-    return Response(fragments_ser)
+    return Response(fragments_ser, status=s.HTTP_200_OK)
 
-  
+
   def post(self, request):
     user = request.user
 
@@ -45,7 +44,8 @@ class Fragment_View(APIView):
     payload = request.data
 
   # Requires the fragments DB ID
-  def delete(self, request, fragment_id):
+  def delete(self, request):
+    fragment_id = request.data.get("fragment_id")
     try:
       fragment = get_object_or_404(Fragment, id=fragment_id)
       fragment.delete()

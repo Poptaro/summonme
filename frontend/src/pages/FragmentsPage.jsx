@@ -33,13 +33,12 @@ export default function FragmentsPage() {
     }
   }
 
-  async function submitSearch(){
-    null
-  }
+
+
   
   return (
     <div className='flex flex-col items-center'>
-      <form className='flex items-center w-[90%] h-20' onSubmit={() => submitSearch()}>
+      <form className='flex items-center w-[90%] h-12'>
         <input 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -53,14 +52,13 @@ export default function FragmentsPage() {
             ? champsArray.map((champ) => {
               return(
                 <Link key={champ.champion_id} to={`/fragments/${champ.champion_key}`}>
-                  <ChampionBannerComponent champ={champ}/>
+                  <ChampionBannerComponent champ={champ} />
                 </Link>
               )
             })
             : search.length
               ? <p>{search} is not found.</p>
               :<p>No champs.</p>
-            
           }
         </div>
       </div>

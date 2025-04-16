@@ -102,7 +102,9 @@ export default function StatsPage() {
 
   return (
     <div className="flex flex-col items-center p-4 gap-1">
-      
+      {/* <button onClick={fetchFavs} className="w-[20%] m-2 border-2 rounded-md hover:cursor-pointer">
+        Refetch Champs
+      </button> */}
       <div className="flex flex-wrap gap-2 justify-center">
         {
           favoriteChamps

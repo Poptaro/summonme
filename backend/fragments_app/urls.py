@@ -5,7 +5,6 @@ from .views import Rune_View, Fragment_View, Item_View
 urlpatterns = [
     path('', Fragment_View.as_view(), name='fragment'),
     path('<str:champion_key>/', Fragment_View.as_view(), name='fragment'),
-    path('<int:fragment_id>/', Fragment_View.as_view(), name='fragment'),
 
 
     path('rune/', Rune_View.as_view(), name='rune'),

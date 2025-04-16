@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.jsx"
 import StatsPage from "./pages/StatsPage.jsx"
 import FragmentsPage from "./pages/FragmentsPage.jsx"
 import FragmentsChampPage from "./pages/FragmentsChampPage.jsx"
+import FragmentCreationPage from "./pages/FragmentCreationPage.jsx"
 
 import SignUpPage from "./pages/SignUpPage.jsx"
 import LogInPage from "./pages/LogInPage.jsx"
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/fragments/:champion_key",
         element: <FragmentsChampPage />
+      },
+      {
+        path: "/fragments/:champion_key/create",
+        element: <FragmentCreationPage />
       },
       {
         path: "/signup",

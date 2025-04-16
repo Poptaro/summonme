@@ -1,4 +1,5 @@
 from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
 from django.db.models import Q, F, CheckConstraint
 from django.db import models
 
@@ -32,7 +33,8 @@ class Fragment(models.Model):
     base_field=models.IntegerField(),
     size=300,
     default=list,
-    blank=True
+    max_length=6,
+    blank=True,
   )
   # If values are None, rainbow rune(pic of all 5?)
   main_rune = models.ForeignKey(Rune, on_delete=models.SET_NULL, default=None, null=True, related_name="main_rune")
@@ -40,6 +42,12 @@ class Fragment(models.Model):
   champion = models.ForeignKey(DDragon, on_delete=models.PROTECT)
 
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="fragment")
+
+  def clean(self):
+    if len(self.items) > 6:
+        raise ValidationError("You can only include up to 6 items.")
+    if len(self.items) != len(set(self.items)):
+        raise ValidationError("Duplicate items are not allowed.")
 
   class Meta:
           constraints = [

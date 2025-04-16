@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status as s
 
+from django.shortcuts import get_object_or_404
 import requests
 
 from .models import Champion, DDragon
@@ -114,7 +115,11 @@ class DDragon_View(APIView):
   permission_classes = [AllowAny]
 
   # Retrieve all ddragon information(Champion data NOT USER TIRED)
-  def get(self, request):
+  def get(self, request, champion_key=None):
+    if champion_key:
+      ddragon = get_object_or_404(DDragon, champion_key__iexact=champion_key)
+      ddragon_ser = DDragonSerializer(ddragon).data
+      return Response(ddragon_ser, status=s.HTTP_200_OK)
     ddragons = DDragon.objects.all()
     ddragons_ser = DDragonSerializer(ddragons, many=True).data
     return Response(ddragons_ser, status=s.HTTP_200_OK)
