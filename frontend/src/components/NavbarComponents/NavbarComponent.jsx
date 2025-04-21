@@ -27,7 +27,7 @@ export default function NavbarComponent({ user, refreshUser }) {
             <NavLink to="/" className={
               ({ isActive }) => 
                 isActive 
-              ? 'text-palette-teal text-5xl' 
+              ? 'text-palette-teal text-5xl'
               : 'text-palette-white text-5xl hover:text-palette-pink'
             }
             >SummonMe</NavLink>

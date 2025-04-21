@@ -4,7 +4,7 @@ import App from "./App.jsx"
 import HomePage from "./pages/HomePage.jsx"
 import StatsPage from "./pages/StatsPage.jsx"
 import FragmentsPage from "./pages/FragmentsPage.jsx"
-import FragmentsChampPage from "./pages/FragmentsChampPage.jsx"
+import FragmentChampPage from "./pages/FragmentChampPage.jsx"
 import FragmentCreationPage from "./pages/FragmentCreationPage.jsx"
 
 import SignUpPage from "./pages/SignUpPage.jsx"
@@ -32,10 +32,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/fragments/:champion_key",
-        element: <FragmentsChampPage />
+        element: <FragmentChampPage />
       },
       {
         path: "/fragments/:champion_key/create",
+        element: <FragmentCreationPage />
+      },
+      {
+        path: "/fragments/:champion_key/create/:fragment_id",
         element: <FragmentCreationPage />
       },
       {

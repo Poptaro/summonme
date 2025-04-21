@@ -38,15 +38,16 @@ export default function FragmentsPage() {
   
   return (
     <div className='flex flex-col items-center'>
-      <form className='flex items-center w-[90%] h-12'>
+      <div className='flex items-center w-[90%] h-12'>
         <input 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border-2 rounded-md m-2 bg-palette-gray text-palette-white"
+          placeholder="Search Champion"
+          className="border-2 rounded-md px-1 bg-palette-gray placeholder-palette-black text-palette-white border-palette-black focus:border-palette-white hover:border-palette-orange inset-shadow-sm inset-shadow-palette-black focus:outline-none focus:ring-0"
         />
-      </form>
+      </div>
       <div className="w-[90%]">
-        <div className='flex flex-wrap gap-1 justify-center p-2 border-2 w-full h-169 bg-palette-gray rounded-md overflow-scroll'>
+        <div className='flex flex-wrap gap-1 justify-center p-2 border-2 w-full h-169 bg-palette-gray border-palette-black inset-shadow-sm inset-shadow-palette-black rounded-md overflow-scroll'>
           {
             champsArray.length
             ? champsArray.map((champ) => {
@@ -58,7 +59,7 @@ export default function FragmentsPage() {
             })
             : search.length
               ? <p>{search} is not found.</p>
-              :<p>No champs.</p>
+              : <p>No champs.</p>
           }
         </div>
       </div>

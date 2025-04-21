@@ -17,8 +17,8 @@
 
 export default function NonFavoriteChampComponent({ champion }) {
   return (
-    <div className="w-12 h-12 border-2 border-palette-orange rounded-full overflow-hidden relative">
-      <img src={champion.ddragon.champion_square} alt={champion.ddragon.champion_name} className="rounded-full h-14 w-14 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+    <div className="w-12 h-12 border-2 border-palette-black hover:border-palette-teal hover:cursor-pointer rounded-sm overflow-hidden relative">
+      <img src={champion.ddragon.champion_square} alt={champion.ddragon.champion_name} className="rounded-sm h-12 w-12 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
     </div>
   )
 }

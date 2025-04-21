@@ -6,6 +6,7 @@
   --color-palette-teal: #00ADB5;
   --color-palette-white: #EEEEEE;
   --color-palette-orange: #FFA45B;
+  --color-palette-orange-hover: oklch(70.5% 0.213 47.604);
   --color-palette-red: #E85A71;
   --color-palette-pink: oklch(83.3% 0.145 321.434)
 

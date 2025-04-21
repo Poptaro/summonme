@@ -27,7 +27,7 @@ class Rune(models.Model):
 
 class Fragment(models.Model):
 
-  fragment_description = models.TextField()
+  fragment_description = models.TextField(default=None, null=True, blank=True)
 
   items = ArrayField(
     base_field=models.IntegerField(),
@@ -37,8 +37,8 @@ class Fragment(models.Model):
     blank=True,
   )
   # If values are None, rainbow rune(pic of all 5?)
-  main_rune = models.ForeignKey(Rune, on_delete=models.SET_NULL, default=None, null=True, related_name="main_rune")
-  sub_rune = models.ForeignKey(Rune, on_delete=models.SET_NULL, default=None, null=True, related_name="sub_rune")
+  main_rune = models.ForeignKey(Rune, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name="main_rune")
+  sub_rune = models.ForeignKey(Rune, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name="sub_rune")
   champion = models.ForeignKey(DDragon, on_delete=models.PROTECT)
 
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="fragment")

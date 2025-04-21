@@ -16,18 +16,18 @@
   
 export default function FavoriteChampComponent({ champion }) {
   return (
-    <div className='flex flex-col items-center py-2 h-44 w-30 border-1 border-palette-black rounded-md bg-palette-gray text-palette-white inset-shadow-sm inset-shadow-palette-black'>
-      <div className=''>
+    <div className='flex flex-col items-center py-2 h-44 w-30 border-2 border-palette-black rounded-md bg-palette-gray hover:cursor-pointer hover:border-palette-red text-palette-white inset-shadow-sm inset-shadow-palette-black'>
+      <div className='text-sm'>
         {champion.ddragon.champion_name}
       </div>
-      <div className='m-2 h-18 w-18 overflow-hidden rounded-full border-palette-teal border-2 relative'>
+      <div className='m-2 h-18 w-18 overflow-hidden rounded-full border-palette-teal border-3  relative'>
         <img src={champion.ddragon.champion_square} className='h-20 w-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'/>
       </div>
       <div className='flex flex-col items-center'>
-        <div>
+        <div className="text-amber-200">
           {champion.champion_level}
         </div>
-        <div>
+        <div className="text-palette-teal">
           {champion.champion_points}
         </div>
       </div>

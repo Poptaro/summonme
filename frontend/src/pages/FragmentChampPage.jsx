@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import FragmentBarComponent from '../components/FragmentComponents/FragmentBarComponent'
 
-export default function FragmentsChampPage() {
+export default function FragmentChampPage() {
 
   const [fragmentChamp, setFragmentChamp] = useState(null)
   const [fragmentChampArray, setFragmentChampArray] = useState([])
@@ -14,6 +14,7 @@ export default function FragmentsChampPage() {
   useEffect(() => {
     fetchFragmentChamp(champion_key)
     fetchFragmentChampArray(champion_key)
+    console.log("fetching")
   }, [])
 
   async function fetchFragmentChamp(champion_key) {
@@ -28,7 +29,7 @@ export default function FragmentsChampPage() {
   }
 
   async function fetchFragmentChampArray(champion_key) {
-    const response = await fetch(`http://localhost:8000/fragments/${champion_key}/`, {
+    const response = await fetch(`http://localhost:8000/fragments/champion/${champion_key}/`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${localStorage.getItem("token")}`
@@ -70,8 +71,8 @@ export default function FragmentsChampPage() {
   return (
     <div className='flex flex-col justify-center items-center'>
       <div className='flex justify-between items-center w-[90%] h-12'>
-        <div className='text-2xl text-palette-orange active:text-orange-500'>
-          <Link to="/fragments">Back</Link>
+        <div className='text-2xl text-palette-orange active:text-palette-red hover:text-palette-orange-hover hover:cursor-pointer'>
+          <Link to="/fragments" className=''>Back</Link>
         </div>
         <div className='text-2xl text-palette-teal'>
           {
@@ -79,10 +80,9 @@ export default function FragmentsChampPage() {
             ? <Link to={`/fragments/${fragmentChamp.champion_key}/create`}>Add a fragment</Link>
             : null
           }
-          
         </div>
       </div>
-      <div className='h-169 w-[90%] rounded-md bg-palette-gray inset-shadow-sm inset-shadow-palette-black'>
+      <div className='h-169 w-[90%] overflow-y-auto rounded-md bg-palette-gray inset-shadow-sm inset-shadow-palette-black'>
         {
           fragmentChamp
           ? fragmentChampArray.length

@@ -29,7 +29,7 @@ export default function GameTagComboComponent({ user, submitFunction, riotError,
           <div className="flex flex-col text-xl">
             <p>Game Name</p>
             <input 
-              className={`border-2 rounded-md w-[90%] px-1 focus:outline-none focus:border-palette-orange focus:ring-0 ${riotError ? "border-palette-red": ""}`} 
+              className={`border-2 rounded-md w-[90%] px-1 focus:outline-none focus:ring-0 focus:border-palette-orange ${riotError ? "border-palette-red": ""}`} 
               value={gameName}
               onChange={(e) => setGameName(e.target.value)}
             />
@@ -48,7 +48,7 @@ export default function GameTagComboComponent({ user, submitFunction, riotError,
                   maxLength={5}
                 />
               </div>
-              <button className="text-palette-orange hover:text-orange-500 disabled:text-palette-black" disabled={!hasChanges}>Change</button>
+              <button className="text-palette-orange hover:text-palette-orange-hover active:text-palette-red disabled:text-palette-black" disabled={!hasChanges}>Change</button>
             </div>
           </div>
           {
