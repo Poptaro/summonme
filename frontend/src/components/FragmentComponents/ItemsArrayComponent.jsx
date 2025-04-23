@@ -16,7 +16,7 @@ export default function ItemsArrayComponent({ itemsArray, setItemsArray }) {
         itemsArray.length
         ? itemsArray.map((item) => {
           return(
-            <img src={item.item_icon} key={item.item_id} className="w-10 h-10 border-1 border-palette-black rounded-sm hover:cursor-pointer hover:border-palette-red hover:border-2" onClick={() => removeFromItems(item)}/>
+            <img src={item.item_icon} key={item.item_id} className="w-12 h-12 border-1 border-palette-black rounded-sm hover:cursor-pointer hover:border-palette-red hover:border-2" onClick={() => removeFromItems(item)}/>
           )
         })
         : null

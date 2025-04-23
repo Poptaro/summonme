@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom"
+import { Link, useOutletContext } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 import FavoriteChampComponent from "../components/FavComponents/FavoriteChampionComponent"
@@ -15,8 +15,6 @@ export default function StatsPage() {
   const [favoriteChamps, setFavoriteChamps] = useState([])
   // Champs to be displayed in the non favorites bar
   const [nonFavoriteChamps, setNonFavoriteChamps] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [search, setSearch] = useState('')
 
 
   useEffect(() => {
@@ -51,13 +49,11 @@ export default function StatsPage() {
   }
 
   async function fetchFavs() {
-    setIsLoading(true)
     const DDragon = await fetchUserDDragon()
     // setUserChamps(DDragon)
     if(user){
       await createFavChamps(DDragon, user.favorite_champs)
     }
-    setIsLoading(false)
   }
 
   // Pass in full copy of useStates above
@@ -105,50 +101,55 @@ export default function StatsPage() {
   return (
     <>
     {
-      user || isLoading
-      ? <div className="flex flex-col items-center p-4 gap-1">
-        <div className="flex flex-wrap gap-2 justify-center">
-          {
-            favoriteChamps
-            ? favoriteChamps.map((favChamp) => {
-              return(
-                <div onClick={() => swapFavs(favoriteChamps, nonFavoriteChamps, favChamp.champion_id, true, setFavoriteChamps, setNonFavoriteChamps)} key={favChamp.champion_id}>
-                  <FavoriteChampComponent champion={favChamp}/>
+      user
+      ? user.puuid
+        ?<div className="flex flex-col items-center p-4 gap-1">
+          <div className="flex flex-wrap gap-2 justify-center">
+            {
+              favoriteChamps
+              ? favoriteChamps.map((favChamp) => {
+                return(
+                  <div onClick={() => swapFavs(favoriteChamps, nonFavoriteChamps, favChamp.champion_id, true, setFavoriteChamps, setNonFavoriteChamps)} key={favChamp.champion_id}>
+                    <FavoriteChampComponent champion={favChamp}/>
+                  </div>
+                )
+              })
+              : <div>
+                  No favs
                 </div>
-              )
-            })
-            : <div>
-                No favs
-              </div>
-          }
+            }
 
-        </div>
-        {/* <div className="flex w-full justify-self-start items-center h-12">
-          <input 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search Champion"
-              className="border-2 rounded-md px-1 bg-palette-gray placeholder-palette-black text-palette-white border-palette-black focus:border-palette-white hover:border-palette-orange inset-shadow-sm inset-shadow-palette-black focus:outline-none focus:ring-0"
-            />
-        </div> */}
-        <div className="flex flex-wrap justify-center gap-1 border-2 border-palette-black bg-palette-gray p-2 rounded-md inset-shadow-sm inset-shadow-palette-black">
-          {
-            nonFavoriteChamps
-            ? nonFavoriteChamps.map((champ) => {
-              return(
-                <div onClick={() => swapFavs(nonFavoriteChamps, favoriteChamps, champ.champion_id, false, setNonFavoriteChamps, setFavoriteChamps)} key={champ.champion_id}>
-                  <NonFavoriteChampComponent champion={champ}/>
+          </div>
+          {/* <div className="flex w-full justify-self-start items-center h-12">
+            <input 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search Champion"
+                className="border-2 rounded-md px-1 bg-palette-gray placeholder-palette-black text-palette-white border-palette-black focus:border-palette-white hover:border-palette-orange inset-shadow-sm inset-shadow-palette-black focus:outline-none focus:ring-0"
+              />
+          </div> */}
+          <div className="flex flex-wrap justify-center gap-1 border-2 border-palette-black bg-palette-gray p-2 rounded-md inset-shadow-sm inset-shadow-palette-black">
+            {
+              nonFavoriteChamps
+              ? nonFavoriteChamps.map((champ) => {
+                return(
+                  <div onClick={() => swapFavs(nonFavoriteChamps, favoriteChamps, champ.champion_id, false, setNonFavoriteChamps, setFavoriteChamps)} key={champ.champion_id}>
+                    <NonFavoriteChampComponent champion={champ}/>
+                  </div>
+                )
+              })
+              : <div className="text-palette-red">
+                  No unfavs
                 </div>
-              )
-            })
-            : <div className="text-palette-red">
-                No unfavs
-              </div>
-          }
+            }
+          </div>
         </div>
-      </div>
+        : <div className="flex flex-col gap-4 items-center text-center justify-center text-palette-orange">
+            <p className="w-[80%] text-3xl">No Riot account associated with this user. Please input a valid game name and tag line inside the profile settings to see your stats.</p>
+            <Link to="/profile" className="text-palette-red underline text-2xl hover:scale-105">Profile Settings</Link>
+          </div>
       : <div className="flex items-center justify-center text-palette-red text-4xl">
-          <p>Error, no user found</p>        
+          <p className="text-palette-red text-3xl mt-4">Please log in to use this page</p>      
         </div>
       }
     </>

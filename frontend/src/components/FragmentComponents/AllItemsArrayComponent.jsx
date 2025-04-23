@@ -25,11 +25,11 @@ export default function AllItemsArrayComponent({ allItemsArray, itemsArray, setI
         ? allItemsArray.map((item) => {
           if(itemsArray.some((i) => i.item_id === item.item_id)) {
             return(
-              <img src={item.item_icon} key={item.item_id} className="w-10 h-10 hover:cursor-pointer hover:border-2 hover:border-palette-teal rounded-sm border-2 opacity-50" onClick={() => removeFromItems(item)}/>
+              <img src={item.item_icon} key={item.item_id} className="w-12 h-12 hover:cursor-pointer hover:border-2 hover:border-palette-teal rounded-sm border-2 opacity-50" onClick={() => removeFromItems(item)}/>
             )
           }
           return (
-            <img src={item.item_icon} key={item.item_id} className="w-10 h-10 hover:cursor-pointer hover:border-2 hover:border-palette-teal rounded-sm border-2" onClick={() => addToItems(item)}/>
+            <img src={item.item_icon} key={item.item_id} className="w-12 h-12 hover:cursor-pointer hover:border-2 hover:border-palette-teal rounded-sm border-2" onClick={() => addToItems(item)}/>
           )
         })
         : <p>Loading....</p>

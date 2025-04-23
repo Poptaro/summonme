@@ -4,10 +4,12 @@
   --color-palette-black: #222831;
   --color-palette-gray: #393E46;
   --color-palette-teal: #00ADB5;
+  --color-palette-teal-active: oklch(60% 0.118 184.704);
   --color-palette-white: #EEEEEE;
   --color-palette-orange: #FFA45B;
   --color-palette-orange-hover: oklch(70.5% 0.213 47.604);
   --color-palette-red: #E85A71;
-  --color-palette-pink: oklch(83.3% 0.145 321.434)
+  --color-palette-pink: oklch(83.3% 0.145 321.434);
+  --color-palette-pink-active: oklch(71.8% 0.202 349.761);
 
 }

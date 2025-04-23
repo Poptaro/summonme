@@ -36,7 +36,10 @@ export default function FragmentChampPage() {
       }
     })
 
-    const data = await response.json()
+    let data = await response.json()
+    data = data.sort((a, b) => {
+      return (a.id - b.id)
+    })
     console.log(data)
     setFragmentChampArray(data)
   }
@@ -93,7 +96,7 @@ export default function FragmentChampPage() {
                   </div>
                 )
               })
-              : <p>No fragments for champ {champion_key}</p>
+              : <p className='text-center p-4 text-palette-orange text-2xl'>No fragments for champ {champion_key}</p>
           : <p>Could not find champ "{champion_key}"</p>
         }
 

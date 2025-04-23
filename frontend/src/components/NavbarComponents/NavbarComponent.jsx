@@ -20,15 +20,14 @@ export default function NavbarComponent({ user, refreshUser }) {
 
   return (
     <nav className='flex flex-col'>
-      {/* <h1 className="4xl bg-gray-800 text-white p-2">BANNERRRRRRR</h1> */}
       <div className='flex justify-between bg-palette-black items-center p-3'>
         <div className='flex gap-24 items-center'>
-          <div className=''>
+          <div className='hidden md:flex'>
             <NavLink to="/" className={
               ({ isActive }) => 
                 isActive 
               ? 'text-palette-teal text-5xl'
-              : 'text-palette-white text-5xl hover:text-palette-pink'
+              : 'text-palette-white text-5xl hover:text-palette-pink active:text-palette-pink-active'
             }
             >SummonMe</NavLink>
             {/* "text-palette-white text-5xl active:text-red-300"  */}
@@ -42,12 +41,12 @@ export default function NavbarComponent({ user, refreshUser }) {
           {
             user
             ? <div className='relative'>
-                <div className="" onClick={() => setProfileModal(!profileModal)}>
+                <div className="actie:text-palette-pink-active" onClick={() => setProfileModal(!profileModal)}>
                   <UsernameComponent>
                     {
                       user.game_name && user.tag_line
-                      ? <p className='hover:text-palette-pink flex items-center'><img src={user.icon} className='h-10 mx-2'/>{user.username}@{user.game_name}#{user.tag_line}</p>
-                      : <p className='hover:text-palette-pink'>{user.username}</p>
+                      ? <p className='hover:text-palette-pink active:text-palette-pink-active flex items-center'><img src={user.icon} className='h-10 mx-2'/>{user.username}@{user.game_name}#{user.tag_line}</p>
+                      : <p className='hover:text-palette-pink active:text-palette-pink-active'>{user.username}</p>
                     }
                   </UsernameComponent>
                 </div>

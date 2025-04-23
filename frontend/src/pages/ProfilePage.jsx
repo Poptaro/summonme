@@ -40,7 +40,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className=" m-8">
+    <div className="m-8">
       {
         user
         ? <div className="w-full h-full p-4 bg-palette-gray rounded-md inset-shadow-sm inset-shadow-palette-black text-palette-white">
@@ -48,7 +48,7 @@ export default function ProfilePage() {
               Profile
             </div>
 
-            <div className="w-full border-1"/>
+            <div className="w-full border-1 border-palette-black"/>
 
             {/* Not Changeable via user */}
             <UsernameComponent title={"Profile Username"} value={user.username}/>

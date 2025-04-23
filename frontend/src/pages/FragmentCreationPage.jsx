@@ -20,6 +20,7 @@ export default function FragmentCreationPage() {
   const [allItemsArray, setAllItemsArray] = useState(null)
   const [allRunesArray, setAllRunesArray] = useState(null)
   const [searchParams, setSearchParams] = useState('')
+
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -58,12 +59,13 @@ export default function FragmentCreationPage() {
         throw new Error("Failed to fetchfragment: ", fragmentId)
       }
       const { items, main_rune, sub_rune, fragment_description} = await response.json()
+      console.log("main_rubne", main_rune)
       setItemsArray(items)
       setMainRuneId(main_rune.rune_id)
       setSubRuneId(sub_rune.rune_id)
       setDescription(fragment_description)
     } catch(err) {
-      console.log(err)
+      console.log("Error: ", err)
     }
   }
 
@@ -78,6 +80,7 @@ export default function FragmentCreationPage() {
         data = data.filter((item) => {
           return item.item_name.toLowerCase().includes(searchParams.toLowerCase())
         })
+
         setAllItemsArray(data)        
       }
     } catch(err) {
@@ -102,7 +105,6 @@ export default function FragmentCreationPage() {
     setError(null)
     // Items array needs to be item_id instead of whole item object
     const itemize = itemsArray.map((item) => item.item_id)
-    console.log(itemize)
     let payload = {
       "fragment_id": fragment_id ? fragment_id : null,
       "champion_key": champion_key,
@@ -146,7 +148,7 @@ export default function FragmentCreationPage() {
         <div>
           {
             fragmentId
-            ? <div className="text-palette-teal" onClick={() => createFragment()}>
+            ? <div className="text-palette-teal hover:cursor-pointer active:text-palette-teal-active" onClick={() => createFragment()}>
                 Save Fragment
               </div>
             : <div className="text-palette-orange hover:cursor-pointer hover:text-palette-orange-hover active:text-palette-red" onClick={() => createFragment()}>

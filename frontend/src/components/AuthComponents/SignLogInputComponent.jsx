@@ -9,7 +9,7 @@ export default function SignLogBarsComponent({ value, setter, UP, bottom, SL, pa
         value={value}
         onChange={(e) => {setter(e.target.value)}}
         className={`
-          border-2 w-full h-8 rounded-sm text-lg items-center justify-center bg-palette-white text-palette-gray 
+          border-2 w-full h-8 rounded-sm text-lg px-1 items-center justify-center bg-palette-white text-palette-gray 
           ${passError?'border-red-400 focus:border-pink-400 focus:outline-none':''}
           ${userError?'border-red-400 focus:border-pink-400 focus:outline-none':''}
           `}

@@ -17,9 +17,12 @@ export default function SignUpPage() {
   const [usernameError, setUsernameError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
 
+  const [error, setError] = useState(false)
+
 
   async function onSubmit(e) {
     e.preventDefault()
+    setError(false)
 
     const isUser = username.length > 16 || username.length < 3
     const isPassword = password !== confirm || password.length <= 1
@@ -56,6 +59,7 @@ export default function SignUpPage() {
           navigate('/')
 
         } catch(error) {
+          setError(true)
           console.log("failed to log in: ", error)
         }
       }
@@ -66,6 +70,11 @@ export default function SignUpPage() {
 
   return (
     <SignLogBoxComponent SL="Sign Up">
+      {
+        error
+        ? <p className="text-palette-red">An error has ocurred either at signup or server side</p>
+        : null
+      }
       <form onSubmit={(e) => {onSubmit(e)}} className="flex flex-col justify-around h-[80%] w-full items-center align-center">
         {/* UP = Username or Password */}
         <SignLogInputComponent value={username} setter={setUsername} UP="Username" bottom={false} className="text-palette-gray" userError={usernameError}/>

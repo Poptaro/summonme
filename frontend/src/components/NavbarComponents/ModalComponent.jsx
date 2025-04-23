@@ -22,12 +22,12 @@ export default function ModalComponent({ refreshUser }) {
   }
 
   return (
-    <div className='flex flex-col items-center w-24 h-20 bg-palette-gray text-palette-white text-2xl absolute right-0 rounded-sm inset-shadow-sm inset-shadow-palette-black'>
-      <div className='h-[50%] hover:cursor-pointer hover:text-palette-pink'>
+    <div className='flex flex-col items-center z-20 w-24 h-20 bg-palette-gray text-palette-white text-2xl absolute right-0 rounded-sm inset-shadow-sm inset-shadow-palette-black'>
+      <div className='h-[50%] hover:cursor-pointer hover:text-palette-pink active:text-palette-pink-active'>
         <NavLink to="/profile">Profile</NavLink>
       </div>
       <div 
-        className='h-[50%] hover:cursor-pointer hover:text-palette-pink text-palette-red'
+        className='h-[50%] hover:cursor-pointer hover:text-palette-pink text-palette-red active:text-palette-pink-active'
         onClick={logout}
       >
         Log Out

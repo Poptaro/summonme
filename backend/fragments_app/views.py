@@ -52,9 +52,9 @@ class Fragment_View(APIView):
         "user": request.user,
         "champion": get_object_or_404(DDragon, champion_key=payload.get("champion_key")),
         "items": payload.get("items") or [],
-        "main_rune": get_object_or_404(Rune, rune_id=payload.get("main_rune")),
-        "sub_rune": get_object_or_404(Rune, rune_id=payload.get("sub_rune")),
-        "fragment_description": payload.get("fragment_description"),
+        "main_rune": Rune.objects.filter(rune_id=payload.get("main_rune")).first() or None,
+        "sub_rune": Rune.objects.filter(rune_id=payload.get("sub_rune")).first() or None,
+        "fragment_description": payload.get("fragment_description") or None,
       }
       fragment = Fragment.objects.create(**frag_payload)
       fragment_ser = FragmentSerializer(fragment).data
@@ -82,8 +82,8 @@ class Fragment_View(APIView):
       fragment = get_object_or_404(Fragment, id=payload.get("fragment_id"))
 
       items = payload.get("items") or []
-      main_rune = Rune.objects.filter(id=payload.get("main_rune")).first() or None
-      sub_rune = Rune.objects.filter(id=payload.get("sub_rune")).first() or None
+      main_rune = Rune.objects.filter(rune_id=payload.get("main_rune")).first() or None
+      sub_rune = Rune.objects.filter(rune_id=payload.get("sub_rune")).first() or None
       fragment_description = payload.get("fragment_description") or None
 
 

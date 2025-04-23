@@ -8,7 +8,7 @@ export default function NavlinkComponent({ children, path }) {
             ({ isActive }) => 
             isActive 
             ? 'text-palette-teal text-2xl' 
-            : 'text-palette-white text-2xl hover:text-palette-pink'
+            : 'text-palette-white text-2xl hover:text-palette-pink active:text-palette-pink-active'
           }
       >{children}</NavLink>
   )
