@@ -63,7 +63,7 @@ export default function FragmentBarComponent({ champion, fragment, deleteFrag })
               {
                 fragment.fragment_description
                 ? <div className="text-palette-white">
-                    {fragment.fragment_description}
+                    {fragment.id}. {fragment.fragment_description}
                   </div>
                 : <div className="text-palette-white">
                     No Description

@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
 
 import UsernameComponent from "../components/ProfileComponents/UsernameComponent"
@@ -8,8 +8,10 @@ import PUUIDComponent from "../components/ProfileComponents/PUUIDComponent"
 export default function ProfilePage() {
 
   const { user, setUser } = useOutletContext()
+  const navigate = useNavigate()
   
   const [riotError, setRiotError] = useState(false)
+  const [deleteAccountShield, setDeleteAccountShield] = useState(true)
   
   // console.log(user)
   
@@ -39,13 +41,48 @@ export default function ProfilePage() {
     }
   }
 
+  async function submitDelete() {
+   if(confirm("Are you sure you want to delete your account?")){
+    const response = await fetch(`http://localhost:8000/user/`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      }
+    })
+    if(!response.ok){
+      setDeleteAccountShield(true)
+      console.log("Failed to delete own account")
+      return
+    }
+    localStorage.removeItem("token")
+    setUser(null)
+    navigate("/")
+    return
+
+   } else {
+    setDeleteAccountShield(true)
+    return
+   }
+  }
+
   return (
     <div className="m-8">
       {
         user
         ? <div className="w-full h-full p-4 bg-palette-gray rounded-md inset-shadow-sm inset-shadow-palette-black text-palette-white">
-            <div className="text-4xl p-2">
-              Profile
+            <div className="flex justify-between items-center text-4xl p-2">
+              <p>Profile</p>
+              <div className="text-palette-red hover:text-palette-pink active:text-palette-pink-active hover:cursor-pointer text-2xl">
+                {
+                  deleteAccountShield
+                  ? <div className="" onClick={() => setDeleteAccountShield(!deleteAccountShield)}>
+                      Delete Account
+                    </div>
+                  : <div onClick={() => submitDelete()}>
+                      Confirm Delete
+                    </div>
+                }
+              </div>
             </div>
 
             <div className="w-full border-1 border-palette-black"/>
@@ -60,8 +97,8 @@ export default function ProfilePage() {
             <PUUIDComponent title={"PUUID"} value={user.puuid} mutable={false}/>
 
           </div>
-        : <div>
-            No user
+        : <div className="text-center text-palette-white text-3xl pt-4">
+            Please <Link to="/signup" className="text-palette-white hover:text-palette-pink active:text-palette-pink-active font-semibold"> Sign Up </Link> or <Link to="/login" className="text-palette-white hover:text-palette-pink active:text-palette-pink-active font-semibold"> Log In</Link> to manage your profile
           </div>
       } 
     </div>

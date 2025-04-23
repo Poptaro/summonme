@@ -96,8 +96,8 @@ export default function FragmentChampPage() {
                   </div>
                 )
               })
-              : <p className='text-center p-4 text-palette-orange text-2xl'>No fragments for champ {champion_key}</p>
-          : <p>Could not find champ "{champion_key}"</p>
+              : <p className='text-center p-4 text-palette-orange text-2xl'>No fragments for {champion_key}</p>
+          : <p>Could not find "{champion_key}"</p>
         }
 
       </div>
