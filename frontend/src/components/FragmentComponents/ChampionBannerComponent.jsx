@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom"
 
 
-
-export default function ChampionBannerComponent({ champ }) {
+export default function ChampionBannerComponent({ champ, path }) {
   return (
-    <div className="flex flex-col border-2 rounded-md border-palette-black hover:border-palette-white overflow-hidden w-20 h-32 justify-items-center relative">
+    <Link to={path} className="flex flex-col border-2 rounded-md border-palette-black hover:border-palette-white overflow-hidden w-20 h-32 justify-items-center relative">
       <div 
         className="h-full w-full bg-cover bg-center text-center absolute inset-0 text-palette-teal opacity-56 z-0 overflow-hidden"
         style={{ backgroundImage: `url(${champ.champion_loading})` }}  
@@ -15,6 +15,6 @@ export default function ChampionBannerComponent({ champ }) {
         </div>
       </div>
 
-    </div>
+    </Link>
   )
 }

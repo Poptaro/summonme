@@ -76,9 +76,7 @@ export default function FragmentsPage() {
                   : champsArray.length
                     ? champsArray.map((champ) => {
                       return(
-                        <Link key={champ.champion_id} to={`/fragments/${champ.champion_key}`}>
-                          <ChampionBannerComponent champ={champ} />
-                        </Link>
+                        <ChampionBannerComponent champ={champ} key={champ.champion_id} path={`/fragments/${champ.champion_key}`}/>
                       )
                     })
                     : search.length
